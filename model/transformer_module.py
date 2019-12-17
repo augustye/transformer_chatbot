@@ -25,7 +25,7 @@ class MultiheadAttention(nn.Module):
     @classmethod
     def _get_future_mask(cls, size, device):
         if not hasattr(cls, '_future_mask') or cls._future_mask.device != device or cls._future_mask.shape < size:
-            cls._future_mask = torch.triu(torch.ones(size[0], size[1], dtype=torch.uint8, device=device), 1)
+            cls._future_mask = torch.triu(torch.ones(size[0], size[1], dtype=torch.bool, device=device), 1)
 
         mask = cls._future_mask[:size[0], :size[1]]
 
@@ -151,7 +151,7 @@ class TransformerBlock(nn.Module):
         full_attn = 0
         n_attn = len(inputs) // 2
         for i in range(0, len(inputs), 2):
-            c, m = inputs[i], inputs[i+1].byte()
+            c, m = inputs[i], inputs[i+1].bool()
             a = self.attn(x, c, c, m)
             full_attn += (a / n_attn)
 

@@ -90,7 +90,7 @@ class TransformerModel(nn.Module):
             
             beam_scores = torch.zeros(batch_size, self.beam_size, device=device)
             beam_lens = torch.ones(batch_size, self.beam_size, dtype=torch.long, device=device)
-            is_end = torch.zeros(batch_size, self.beam_size, dtype=torch.uint8, device=device)
+            is_end = torch.zeros(batch_size, self.beam_size, dtype=torch.bool, device=device)
 
             beam_enc_contexts = []
             for c, p in enc_contexts:
