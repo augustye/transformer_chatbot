@@ -99,7 +99,7 @@ class TransformerAgent(Agent):
         # 'length_penalty': 0.6,
 
         if self.opt['annealing_topk'] is not None:
-            assert self.opt['annealing_topk'] > self.opt['beam_size']
+            assert self.opt['annealing_topk'] >= self.opt['beam_size']
 
         assert self.opt['diversity_coef'] >= 0
         assert self.opt['beam_size'] % self.opt['diversity_groups'] == 0
